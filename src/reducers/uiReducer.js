@@ -5,6 +5,12 @@ const initialState = {
   msgError: "",
 };
 
+/**
+ * uiReducer in type.uiSetError is responsible of handle
+ * send message error that will be show in Form when user
+ * puts their data
+ */
+
 export const uiReducer = (state = initialState, action) => {
   switch (action.type) {
     case type.uiSetError:

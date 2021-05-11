@@ -1,9 +1,9 @@
 import React from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { userLogoutFirebase } from "../../actions/login";
 import { JournalEntries } from "./JournalEntries";
-
 export const Sidebar = () => {
+  const { displayName } = useSelector(({ auth }) => auth);
   const dispatch = useDispatch();
   const handleLogout = () => {
     dispatch(userLogoutFirebase());
@@ -14,7 +14,7 @@ export const Sidebar = () => {
       <div className="journal__sidebar-navbar">
         <h3 className="mt-5">
           <i className="far fa-moon"></i>
-          <span> Uris</span>
+          <span> {displayName}</span>
         </h3>
 
         <button className="btn" onClick={handleLogout}>

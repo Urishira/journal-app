@@ -42,7 +42,25 @@
 .journal__entries {
   flex: 1 1 auto;
   margin-top: 30px;
-  overflow-y: scroll;
+  overflow-y: auto;
+  &::-webkit-scrollbar {
+    -webkit-appearance: none;
+  }
+  &::-webkit-scrollbar:vertical {
+    width: 10px;
+  }
+  &::-webkit-scrollbar-button:increment,
+  &::-webkit-scrollbar-button {
+    display: none;
+  }
+  &::-webkit-scrollbar:horizontal {
+    height: 5px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: white;
+    border-radius: 20px;
+    border: 1px solid $primary;
+  }
 }
 
 .journal__entry {

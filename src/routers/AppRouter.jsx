@@ -11,14 +11,15 @@ import PublicRoutes from "./PublicRoutes";
 
 export const AppRouter = () => {
   const [checking, setChecking] = useState(true);
-  const [islogin, setIslogin] = useState(false);
+  const [isloged, setIsloged] = useState(false);
   const dispatch = useDispatch();
   useEffect(() => {
     firebase.auth().onAuthStateChanged((user) => {
       if (user?.uid) {
         dispatch(login(user.uid, user.displayName));
+        setIsloged(true);
       } else {
-        setIslogin(true);
+        setIsloged(false);
       }
       setChecking(false);
     });
@@ -34,14 +35,14 @@ export const AppRouter = () => {
         <Switch>
           <PublicRoutes
             path="/auth"
-            isAuthenticated={islogin}
+            isAuthenticated={isloged}
             component={AuthRouter}
           />
 
           <PrivateRoutes
             path="/"
             component={JournalScreen}
-            isAuthenticated={islogin}
+            isAuthenticated={isloged}
           />
 
           <Redirect to="/auth/login" />
