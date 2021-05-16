@@ -8,7 +8,7 @@ const initialState = {
 /**
  * uiReducer in type.uiSetError is responsible of handle
  * send message error that will be show in Form when user
- * puts their data
+ * puts their data.
  */
 
 export const uiReducer = (state = initialState, action) => {

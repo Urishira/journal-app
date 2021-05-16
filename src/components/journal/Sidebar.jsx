@@ -1,6 +1,7 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { userLogoutFirebase } from "../../actions/login";
+import { startNewNote } from "../../actions/notes";
 import { JournalEntries } from "./JournalEntries";
 export const Sidebar = () => {
   const { displayName } = useSelector(({ auth }) => auth);
@@ -9,6 +10,9 @@ export const Sidebar = () => {
     dispatch(userLogoutFirebase());
   };
 
+  const handleEntry = () => {
+    dispatch(startNewNote());
+  };
   return (
     <aside className="journal__sidebar">
       <div className="journal__sidebar-navbar">
@@ -22,7 +26,7 @@ export const Sidebar = () => {
         </button>
       </div>
 
-      <div className="journal__new-entry">
+      <div className="journal__new-entry" onClick={handleEntry}>
         <i className="far fa-calendar-plus fa-5x"></i>
         <p className="mt-5">New entry</p>
       </div>
