@@ -19,9 +19,10 @@ export const NoteScreen = () => {
       activeId.current = notes.id;
     }
   }, [reset, notes.id]);
+
   return (
     <div className="notes__main-content">
-      <NotesAppBar title={title} id={id} body={body} />
+      <NotesAppBar {...inputsValue} />
 
       <div className="notes__content">
         <input

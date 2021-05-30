@@ -1,10 +1,13 @@
 /* body:"", date:Date title */
 
+import Swal from "sweetalert2";
+import { db } from "../firebase/firebaseConfig";
 import { dbRef } from "../helpers/notes/dbRef";
 import { getNotes } from "../helpers/notes/getNotes";
+import { uploadFile } from "../helpers/notes/uploadFile";
 import { type } from "../types/type";
 
-//build new note when the user push btn New Entry
+//build new note when the user touch btn New Entry
 export const startNewNote = () => {
   return async (dispatch, getState) => {
     const { uid } = getState().auth;
@@ -13,8 +16,8 @@ export const startNewNote = () => {
       body: "",
       date: new Date().getTime(),
     };
-    await dbRef(uid).add(newNote);
-    dispatch(activeNote(dbRef.id, newNote));
+    const dataRef = await dbRef(uid).add(newNote);
+    dispatch(activeNote(dataRef.id, newNote));
   };
 };
 
@@ -39,17 +42,48 @@ export const loadNotes = (note) => ({
   payload: note,
 });
 
-export const startNotesUpdated = (id, body, title) => {
+export const startNotesUpdated = (...note) => {
   return (dispatch, getState) => {
-    const { uid } = getState().auth;
-    dbRef(uid)
-      .doc(id)
-      .update({
+    const { id, body, title, link } = note;
+    try {
+      const { uid } = getState().auth;
+      dbRef(uid).doc(id).update({
         body: body,
         title: title,
-      })
-      .then(() => {
-        console.log(id, " Update Done");
       });
+
+      Swal.fire({ title: "Save Done", icon: "success" });
+
+      dispatch(updateNotes(id, { id, body, title }));
+    } catch (error) {
+      throw error;
+    }
+  };
+};
+
+const updateNotes = (id, note) => ({
+  type: type.notesUpdated,
+  payload: {
+    id,
+    note: {
+      id,
+      ...note,
+    },
+  },
+});
+
+export const startUploading = (file) => {
+  return async (dispatch, getState) => {
+    const { active } = getState().notes;
+    Swal.fire({
+      title: "Uploading",
+      text: "please wait...",
+      allowOutsideClick: false,
+      onBeforeOpen: () => Swal.showLoading(),
+    });
+    const fileUrl = await uploadFile(file);
+    active.url = fileUrl;
+    Swal.close();
+    dispatch(startNotesUpdated(active));
   };
 };
