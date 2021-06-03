@@ -1,18 +1,20 @@
 import React, { useEffect, useRef } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { activeNote } from "../../actions/notes";
 import { useForm } from "../../hooks/useForm";
 import { NotesAppBar } from "./NotesAppBar";
 
 export const NoteScreen = () => {
+  const dispatch = useDispatch();
   const { active: notes } = useSelector((state) => state.notes);
 
   const [inputsValue, handleInputChange, reset] = useForm(notes);
-  const { title, body, id } = inputsValue;
+  const { title, body } = inputsValue;
   /**
    * This code fix when user touch on entries done
    * returning data in inpuntValue
    */
-  const activeId = useRef(id);
+  const activeId = useRef(notes.id);
   useEffect(() => {
     if (notes.id !== activeId.current) {
       reset(notes.id);
@@ -20,8 +22,11 @@ export const NoteScreen = () => {
     }
   }, [reset, notes.id]);
 
+  useEffect(() => {
+    dispatch(activeNote(inputsValue.id, { ...inputsValue }));
+  }, [dispatch, inputsValue]);
   return (
-    <div className="notes__main-content">
+    <div className={`notes__main-content `}>
       <NotesAppBar {...inputsValue} />
 
       <div className="notes__content">
@@ -43,12 +48,11 @@ export const NoteScreen = () => {
           onChange={handleInputChange}
         ></textarea>
 
-        <div className="notes__image">
-          <img
-            src="https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__340.jpg"
-            alt="imagen"
-          />
-        </div>
+        {notes.url && (
+          <div className="notes__image">
+            <img src={notes.url} alt="imagen" />
+          </div>
+        )}
       </div>
     </div>
   );

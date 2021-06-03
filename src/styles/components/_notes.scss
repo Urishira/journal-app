@@ -49,3 +49,9 @@
   width: 100%;
   max-width: 200px;
 }
+
+@media screen and (max-width: 600px) {
+  .notes__main-content {
+    display: none;
+  }
+}

@@ -15,4 +15,6 @@ export const type = {
   notesFileUrl: "[Notes] Updated image url",
   notesDelete: "[Notes] Delete note",
   notesLogoutCleaning: "[Notes] Logout cleaning",
+
+  uiMediaScreen: "[UI Media] set Mobile",
 };

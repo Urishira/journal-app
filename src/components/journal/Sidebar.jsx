@@ -1,15 +1,16 @@
-import React from "react";
+import React, { memo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { userLogoutFirebase } from "../../actions/login";
 import { startNewNote } from "../../actions/notes";
 import { JournalEntries } from "./JournalEntries";
-export const Sidebar = () => {
+export const Sidebar = memo(() => {
   const { displayName } = useSelector(({ auth }) => auth);
   const dispatch = useDispatch();
   const handleLogout = () => {
     dispatch(userLogoutFirebase());
   };
-
+  const state = useSelector((state) => state);
+  console.log(state);
   const handleEntry = () => {
     dispatch(startNewNote());
   };
@@ -34,4 +35,4 @@ export const Sidebar = () => {
       <JournalEntries />
     </aside>
   );
-};
+});

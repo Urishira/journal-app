@@ -1,14 +1,14 @@
 import moment from "moment";
-import React from "react";
+import React, { memo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { startNotesUpdated, startUploading } from "../../actions/notes";
 
-export const NotesAppBar = ({ title, body, id, link }) => {
+export const NotesAppBar = memo(() => {
   const dispatch = useDispatch();
-  const state = useSelector((state) => state);
-  console.log(state);
+  const { active } = useSelector((state) => state.notes);
+  console.log(active);
   const handleSaveNote = () => {
-    dispatch(startNotesUpdated(id, body, title, link));
+    dispatch(startNotesUpdated(active));
   };
   const handleClickImg = () => {
     document.querySelector("#fileImg").click();
@@ -21,6 +21,9 @@ export const NotesAppBar = ({ title, body, id, link }) => {
   };
   return (
     <div className="notes__appbar">
+      <button className="btn notes_appbar-btnMenu">
+        <i className="fas fa-bars"></i>
+      </button>
       <span>{moment().format("Do MMMM YYYY")}</span>
       <input
         type="file"
@@ -40,4 +43,4 @@ export const NotesAppBar = ({ title, body, id, link }) => {
       </div>
     </div>
   );
-};
+});

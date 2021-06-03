@@ -101,3 +101,9 @@
 .journal__entry-date-box span {
   font-size: 12px;
 }
+
+@media screen and (max-width: 600px) {
+  .journal__sidebar {
+    width: 100%;
+  }
+}

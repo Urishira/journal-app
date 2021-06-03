@@ -42,19 +42,19 @@ export const loadNotes = (note) => ({
   payload: note,
 });
 
-export const startNotesUpdated = (...note) => {
+export const startNotesUpdated = (note) => {
   return (dispatch, getState) => {
-    const { id, body, title, link } = note;
+    const noteSave = { ...note };
+    delete noteSave.id;
+    if (!noteSave.url) delete noteSave.url;
+
     try {
       const { uid } = getState().auth;
-      dbRef(uid).doc(id).update({
-        body: body,
-        title: title,
-      });
+      dbRef(uid).doc(note.id).update(noteSave);
 
       Swal.fire({ title: "Save Done", icon: "success" });
 
-      dispatch(updateNotes(id, { id, body, title }));
+      dispatch(updateNotes(note.id, noteSave));
     } catch (error) {
       throw error;
     }
@@ -79,11 +79,12 @@ export const startUploading = (file) => {
       title: "Uploading",
       text: "please wait...",
       allowOutsideClick: false,
-      onBeforeOpen: () => Swal.showLoading(),
+      willOpen: () => Swal.showLoading(),
     });
     const fileUrl = await uploadFile(file);
     active.url = fileUrl;
     Swal.close();
+
     dispatch(startNotesUpdated(active));
   };
 };
