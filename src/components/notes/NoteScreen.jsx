@@ -7,7 +7,8 @@ import { NotesAppBar } from "./NotesAppBar";
 export const NoteScreen = () => {
   const dispatch = useDispatch();
   const { active: notes } = useSelector((state) => state.notes);
-
+  const { activeResize } = useSelector((state) => state.screen);
+  console.log(activeResize);
   const [inputsValue, handleInputChange, reset] = useForm(notes);
   const { title, body } = inputsValue;
   /**
@@ -26,7 +27,7 @@ export const NoteScreen = () => {
     dispatch(activeNote(inputsValue.id, { ...inputsValue }));
   }, [dispatch, inputsValue]);
   return (
-    <div className={`notes__main-content `}>
+    <div className="notes__main-content">
       <NotesAppBar {...inputsValue} />
 
       <div className="notes__content">

@@ -1,7 +1,8 @@
 import React from "react";
 import moment from "moment";
 import { useDispatch } from "react-redux";
-import { activeNote } from "../../actions/notes";
+import { activeNote, noteDeleting } from "../../actions/notes";
+import { screenResizeAction } from "../../actions/screen";
 
 export const JournalEntry = ({ id, title, body, date, url }) => {
   const dispatch = useDispatch();
@@ -10,7 +11,9 @@ export const JournalEntry = ({ id, title, body, date, url }) => {
   const handleClickNoteActive = () => {
     dispatch(activeNote(id, { body, title, url }));
   };
-
+  const handleDelete = () => {
+    dispatch(noteDeleting(id));
+  };
   return (
     <div onClick={handleClickNoteActive} className="journal__entry pointer">
       {url && (
@@ -32,6 +35,10 @@ export const JournalEntry = ({ id, title, body, date, url }) => {
         <span>{dateTime.format("dddd")}</span>
         <h4>{dateTime.format("Do")}</h4>
       </div>
+
+      <button onClick={handleDelete} className="btn-delete pointer">
+        <i className="fas fa-trash"></i>
+      </button>
     </div>
   );
 };

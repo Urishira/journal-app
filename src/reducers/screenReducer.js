@@ -1,7 +1,7 @@
 import { type } from "../types/type";
 
 const initialState = {
-  activeResize: "showContent",
+  activeResize: false,
 };
 
 export const screenReducer = (state = initialState, action) => {

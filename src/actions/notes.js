@@ -1,7 +1,5 @@
 /* body:"", date:Date title */
-
 import Swal from "sweetalert2";
-import { db } from "../firebase/firebaseConfig";
 import { dbRef } from "../helpers/notes/dbRef";
 import { getNotes } from "../helpers/notes/getNotes";
 import { uploadFile } from "../helpers/notes/uploadFile";
@@ -18,6 +16,7 @@ export const startNewNote = () => {
     };
     const dataRef = await dbRef(uid).add(newNote);
     dispatch(activeNote(dataRef.id, newNote));
+    dispatch(addNewNote(dataRef.id, newNote));
   };
 };
 
@@ -28,11 +27,16 @@ export const activeNote = (id, note) => ({
     ...note,
   },
 });
+export const addNewNote = (id, note) => ({
+  type: type.notesAddNew,
+  payload: { id, ...note },
+});
 
 // code optimiced to get data notes
 export const startloadingNotes = (uid) => {
   return async (dispatch) => {
     const notes = await getNotes(uid);
+    console.log(notes);
     dispatch(loadNotes(notes));
   };
 };
@@ -75,12 +79,14 @@ const updateNotes = (id, note) => ({
 export const startUploading = (file) => {
   return async (dispatch, getState) => {
     const { active } = getState().notes;
+
     Swal.fire({
       title: "Uploading",
       text: "please wait...",
       allowOutsideClick: false,
       willOpen: () => Swal.showLoading(),
     });
+
     const fileUrl = await uploadFile(file);
     active.url = fileUrl;
     Swal.close();
@@ -88,3 +94,29 @@ export const startUploading = (file) => {
     dispatch(startNotesUpdated(active));
   };
 };
+
+export const noteDeleting = (id) => {
+  return async (dispatch, getState) => {
+    const { uid } = getState().auth;
+    Swal.fire({
+      title: "Wait for deleting...",
+      willOpen: () => Swal.showLoading(),
+    });
+    await dbRef(uid)
+      .doc(id)
+      .delete()
+      .then(() => {
+        Swal.fire({ title: "Done", willClose: Swal.hideLoading() });
+        dispatch(noteDelete(id));
+      });
+  };
+};
+
+export const noteDelete = (id) => ({
+  type: type.notesDelete,
+  payload: id,
+});
+
+export const noteCleaningtoLogout = () => ({
+  type: type.notesLogoutCleaning,
+});

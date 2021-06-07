@@ -2,13 +2,14 @@ import moment from "moment";
 import React, { memo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { startNotesUpdated, startUploading } from "../../actions/notes";
+import { screenResizeAction } from "../../actions/screen";
 
 export const NotesAppBar = memo(() => {
   const dispatch = useDispatch();
-  const { active } = useSelector((state) => state.notes);
-  console.log(active);
+  const { notes, screen } = useSelector((state) => state);
+  console.log(screen.activeResize);
   const handleSaveNote = () => {
-    dispatch(startNotesUpdated(active));
+    dispatch(startNotesUpdated(notes.active));
   };
   const handleClickImg = () => {
     document.querySelector("#fileImg").click();
@@ -19,10 +20,20 @@ export const NotesAppBar = memo(() => {
       dispatch(startUploading(file));
     }
   };
+  const handleHide = () => {
+    dispatch(screenResizeAction(false));
+  };
   return (
     <div className="notes__appbar">
-      <button className="btn notes_appbar-btnMenu">
-        <i className="fas fa-bars"></i>
+      <button
+        className={
+          screen.activeResize
+            ? "btn  animate__animated animate__bounceInLeft animate__delay-.2s"
+            : "btn_hide"
+        }
+        onClick={handleHide}
+      >
+        <i className="fas fa-arrow-right"></i>
       </button>
       <span>{moment().format("Do MMMM YYYY")}</span>
       <input
