@@ -18,3 +18,8 @@ export const type = {
 
   uiMediaScreen: "[UI Media] set Mobile",
 };
+
+/* LOGIN: "BLABLABLA",
+LOGOUT: 'DFSKLL;KSDF'
+NOTES_DELETE
+ */

@@ -3,7 +3,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import validator from "validator";
 import { loginWithFirebase, loginWithGoogle } from "../../actions/login";
+import { setErrorAction } from "../../actions/ui";
 import { useForm } from "../../hooks/useForm";
+import { AlertError } from "./AlertError";
+
 export const LoginScreen = () => {
   const dispatch = useDispatch();
   const [formValue, handleInputChange] = useForm({
@@ -20,6 +23,7 @@ export const LoginScreen = () => {
     if (validator.isEmail(email) && password.length > 6) {
       dispatch(loginWithFirebase(email, password));
     }
+    dispatch(setErrorAction("Account invalid"));
   };
 
   const handleGoogleLogin = () => {
@@ -28,7 +32,7 @@ export const LoginScreen = () => {
   return (
     <>
       <h3 className="auth__title">Login</h3>
-
+      {msgError && <AlertError err={msgError} />}
       <form onSubmit={handleForm}>
         <input
           type="text"

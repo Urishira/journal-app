@@ -1,10 +1,13 @@
 import firebase from "firebase/app";
 import "firebase/firestore";
 import "firebase/auth";
-
+/**
+ * Mas adelante se introduciran los valores que no estan abiertos al publico
+ * en variables de entorno
+ */
 const firebaseConfig = {
-  apiKey: "AIzaSyBmLxhR6CWb7mOQa2onI_6M9GFERIxh2Qk",
-  authDomain: "app-react-journalapp.firebaseapp.com",
+  apiKey: process.env.REACT_APP_APIKEY,
+  authDomain: process.env.REACT_APP_AUTHDOMAIN,
   projectId: "app-react-journalapp",
   storageBucket: "app-react-journalapp.appspot.com",
   messagingSenderId: "106908712674",

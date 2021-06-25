@@ -27,7 +27,7 @@ export const JournalEntry = ({ id, title, body, date, url }) => {
       )}
 
       <div className="journal__entry-body">
-        <p className="journal__entry-title"> {title}</p>
+        <p className="journal__entry-title">{title}</p>
         <p className="journal__entry-content">{body}</p>
       </div>
 
@@ -42,3 +42,7 @@ export const JournalEntry = ({ id, title, body, date, url }) => {
     </div>
   );
 };
+
+/**
+ * escribir custom hooks para los actions
+ */

@@ -14,6 +14,8 @@ export const uploadFile = async (file) => {
     if (dataCloud.ok) {
       console.log(formResp.secure_url);
       return formResp.secure_url;
+    } else {
+      return null;
     }
   } catch (error) {
     throw error;
