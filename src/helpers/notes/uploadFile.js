@@ -5,7 +5,7 @@ export const uploadFile = async (file) => {
   formData.append("file", file);
 
   const dataCloud = await fetch(cloudUrl, {
-    method: "post",
+    method: "POST",
     body: formData,
   });
 
@@ -21,3 +21,6 @@ export const uploadFile = async (file) => {
     throw error;
   }
 };
+
+//I need to build a function that I have twice equal img
+// it do request get img like first and delete the img equal first
