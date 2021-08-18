@@ -1,12 +1,16 @@
-import React from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
-import { startRegisterWithPasswordName } from "../../actions/login";
-import { removeError, setErrorAction } from "../../actions/ui";
-import { isFormValid } from "../../helpers/isFormValid";
-import { useForm } from "../../hooks/useForm";
-import { userSchema } from "../../validations/UserValidation";
-import { AlertError } from "./AlertError";
+import React from 'react';
+
+import {
+  useDispatch,
+  useSelector,
+} from 'react-redux';
+import { Link } from 'react-router-dom';
+
+import { useForm } from '../../hooks/useForm';
+import { startRegisterWithPasswordName } from '../../redux/actions/login';
+import { removeError } from '../../redux/actions/ui';
+import { userSchema } from '../../validations/UserValidation';
+import { AlertError } from './AlertError';
 
 export const RegisterScreen = () => {
   const dispatch = useDispatch();

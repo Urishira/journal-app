@@ -1,4 +1,4 @@
-import { type } from "../types/type";
+import { types } from '../types/types';
 
 const initialState = {
   activeResize: false,
@@ -6,7 +6,7 @@ const initialState = {
 
 export const screenReducer = (state = initialState, action) => {
   switch (action.type) {
-    case type.uiMediaScreen:
+    case types.uiMediaScreen:
       return { ...state, activeResize: action.payload };
 
     default:

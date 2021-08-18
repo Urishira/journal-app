@@ -1,8 +1,15 @@
-import Swal from "sweetalert2";
-import { googleAuthLogin, firebase } from "../firebase/firebaseConfig";
-import { type } from "../types/type";
-import { noteCleaningtoLogout } from "./notes";
-import { finishLoading, startLoading } from "./ui";
+import Swal from 'sweetalert2';
+
+import {
+  firebase,
+  googleAuthLogin,
+} from '../../api/firebase/firebaseConfig';
+import { types } from '../types/types';
+import { noteCleaningtoLogout } from './notes';
+import {
+  finishLoading,
+  startLoading,
+} from './ui';
 
 export const loginWithFirebase = (email, password) => {
   return (dispatch) => {
@@ -47,7 +54,7 @@ export const loginWithGoogle = () => {
 
 //Login always call to do dispatch to the reducer
 export const login = (uid, displayName) => ({
-  type: type.login,
+  type: types.login,
   payload: {
     uid,
     displayName,
@@ -65,5 +72,5 @@ export const userLogoutFirebase = () => {
 };
 
 const logout = () => ({
-  type: type.logout,
+  type: types.logout,
 });

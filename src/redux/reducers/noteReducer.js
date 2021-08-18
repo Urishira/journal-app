@@ -1,4 +1,4 @@
-import { type } from "../types/type";
+import { types } from '../types/types';
 
 const initialState = {
   notes: [],
@@ -7,7 +7,7 @@ const initialState = {
 
 export const noteReducer = (state = initialState, action) => {
   switch (action.type) {
-    case type.notesActive:
+    case types.notesActive:
       console.log(action.payload);
       return {
         ...state,
@@ -16,15 +16,15 @@ export const noteReducer = (state = initialState, action) => {
         },
       };
 
-    case type.notesAddNew:
+    case types.notesAddNew:
       return {
         ...state,
         notes: [action.payload, ...state.notes],
       };
-    case type.notesLoad:
+    case types.notesLoad:
       return { ...state, notes: [...action.payload] };
 
-    case type.notesUpdated:
+    case types.notesUpdated:
       return {
         ...state,
         notes: state.notes.map((note) =>
@@ -32,14 +32,23 @@ export const noteReducer = (state = initialState, action) => {
         ),
       };
 
-    case type.notesDelete:
+    case types.notesDelete:
       console.log(action.payload);
       return {
         ...state,
         active: null,
         notes: state.notes.filter((notes) => notes.id !== action.payload),
       };
-    case type.notesLogoutCleaning:
+
+    case types.nodeDeleteImage:
+      return {
+        ...state,
+        notes: state.notes.map((note) =>
+          note.id === action.payload ? { url: null } : note
+        ),
+      };
+
+    case types.notesLogoutCleaning:
       return {
         ...state,
         notes: [],

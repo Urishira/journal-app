@@ -1,4 +1,4 @@
-export const type = {
+export const types = {
   login: "[Auth] login",
   logout: "[Auth] Logout",
 
@@ -15,6 +15,7 @@ export const type = {
   notesFileUrl: "[Notes] Updated image url",
   notesDelete: "[Notes] Delete note",
   notesLogoutCleaning: "[Notes] Logout cleaning",
+  nodeDeleteImage: "[Notes] Delete Image",
 
   uiMediaScreen: "[UI Media] set Mobile",
 };

@@ -1,4 +1,4 @@
-import { type } from "../types/type";
+import { types } from '../types/types';
 
 const initialState = {
   loading: false,
@@ -13,22 +13,22 @@ const initialState = {
 
 export const uiReducer = (state = initialState, action) => {
   switch (action.type) {
-    case type.uiSetError:
+    case types.uiSetError:
       return {
         ...state,
         msgError: action.payload,
       };
-    case type.uiUsSetError:
+    case types.uiUsSetError:
       return {
         ...state,
         msgError: null,
       };
-    case type.uiStartLoading:
+    case types.uiStartLoading:
       return {
         ...state,
         loading: action.payload,
       };
-    case type.uiFinishLoading:
+    case types.uiFinishLoading:
       return {
         loading: action.payload,
       };

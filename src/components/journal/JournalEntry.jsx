@@ -1,8 +1,12 @@
-import React from "react";
-import moment from "moment";
-import { useDispatch } from "react-redux";
-import { activeNote, noteDeleting } from "../../actions/notes";
-import { screenResizeAction } from "../../actions/screen";
+import React from 'react';
+
+import moment from 'moment';
+import { useDispatch } from 'react-redux';
+
+import {
+  activeNote,
+  noteDeleting,
+} from '../../redux/actions/notes';
 
 export const JournalEntry = ({ id, title, body, date, url }) => {
   const dispatch = useDispatch();

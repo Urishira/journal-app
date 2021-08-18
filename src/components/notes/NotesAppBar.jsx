@@ -1,8 +1,16 @@
-import moment from "moment";
-import React, { memo } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { startNotesUpdated, startUploading } from "../../actions/notes";
-import { screenResizeAction } from "../../actions/screen";
+import React, { memo } from 'react';
+
+import moment from 'moment';
+import {
+  useDispatch,
+  useSelector,
+} from 'react-redux';
+
+import {
+  startNotesUpdated,
+  startUploading,
+} from '../../redux/actions/notes';
+import { screenResizeAction } from '../../redux/actions/screen';
 
 export const NotesAppBar = memo(() => {
   const dispatch = useDispatch();

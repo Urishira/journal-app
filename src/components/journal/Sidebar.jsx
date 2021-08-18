@@ -1,8 +1,13 @@
-import React, { memo } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { userLogoutFirebase } from "../../actions/login";
-import { startNewNote } from "../../actions/notes";
-import { JournalEntries } from "./JournalEntries";
+import React, { memo } from 'react';
+
+import {
+  useDispatch,
+  useSelector,
+} from 'react-redux';
+
+import { userLogoutFirebase } from '../../redux/actions/login';
+import { startNewNote } from '../../redux/actions/notes';
+import { JournalEntries } from './JournalEntries';
 
 export const Sidebar = memo(() => {
   const { displayName } = useSelector(({ auth }) => auth);

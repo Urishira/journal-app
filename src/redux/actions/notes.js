@@ -1,9 +1,10 @@
 /* body:"", date:Date title */
-import Swal from "sweetalert2";
-import { dbRef } from "../helpers/notes/dbRef";
-import { getNotes } from "../helpers/notes/getNotes";
-import { uploadFile } from "../helpers/notes/uploadFile";
-import { type } from "../types/type";
+import Swal from 'sweetalert2';
+
+import { dbRef } from '../../helpers/notes/dbRef';
+import { getNotes } from '../../helpers/notes/getNotes';
+import { uploadFile } from '../../helpers/notes/uploadFile';
+import { types } from '../types/types';
 
 //build new note when the user touch btn New Entry
 export const startNewNote = () => {
@@ -21,14 +22,15 @@ export const startNewNote = () => {
 };
 
 export const activeNote = (id, note) => ({
-  type: type.notesActive,
+  type: types.notesActive,
   payload: {
     id,
     ...note,
   },
 });
+
 export const addNewNote = (id, note) => ({
-  type: type.notesAddNew,
+  type: types.notesAddNew,
   payload: { id, ...note },
 });
 
@@ -42,7 +44,7 @@ export const startloadingNotes = (uid) => {
 };
 
 export const loadNotes = (note) => ({
-  type: type.notesLoad,
+  type: types.notesLoad,
   payload: note,
 });
 
@@ -66,7 +68,7 @@ export const startNotesUpdated = (note) => {
 };
 
 const updateNotes = (id, note) => ({
-  type: type.notesUpdated,
+  type: types.notesUpdated,
   payload: {
     id,
     note: {
@@ -113,10 +115,15 @@ export const noteDeleting = (id) => {
 };
 
 export const noteDelete = (id) => ({
-  type: type.notesDelete,
+  type: types.notesDelete,
   payload: id,
 });
 
 export const noteCleaningtoLogout = () => ({
-  type: type.notesLogoutCleaning,
+  type: types.notesLogoutCleaning,
+});
+
+export const deleteImage = (id) => ({
+  type: types.nodeDeleteImage,
+  payload: id,
 });

@@ -1,11 +1,19 @@
-import React from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
-import validator from "validator";
-import { loginWithFirebase, loginWithGoogle } from "../../actions/login";
-import { setErrorAction } from "../../actions/ui";
-import { useForm } from "../../hooks/useForm";
-import { AlertError } from "./AlertError";
+import React from 'react';
+
+import {
+  useDispatch,
+  useSelector,
+} from 'react-redux';
+import { Link } from 'react-router-dom';
+import validator from 'validator';
+
+import { useForm } from '../../hooks/useForm';
+import {
+  loginWithFirebase,
+  loginWithGoogle,
+} from '../../redux/actions/login';
+import { setErrorAction } from '../../redux/actions/ui';
+import { AlertError } from './AlertError';
 
 export const LoginScreen = () => {
   const dispatch = useDispatch();

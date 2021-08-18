@@ -1,8 +1,19 @@
-import React, { useEffect, useRef } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { activeNote } from "../../actions/notes";
-import { useForm } from "../../hooks/useForm";
-import { NotesAppBar } from "./NotesAppBar";
+import React, {
+  useEffect,
+  useRef,
+} from 'react';
+
+import {
+  useDispatch,
+  useSelector,
+} from 'react-redux';
+
+import { useForm } from '../../hooks/useForm';
+import {
+  activeNote,
+  deleteImage,
+} from '../../redux/actions/notes';
+import { NotesAppBar } from './NotesAppBar';
 
 export const NoteScreen = () => {
   const dispatch = useDispatch();
@@ -15,6 +26,7 @@ export const NoteScreen = () => {
    * This code fix when user touch on entries done
    * returning data in inpuntValue
    */
+  console.log(notes);
   const activeId = useRef(notes.id);
   useEffect(() => {
     if (notes.id !== activeId.current) {
@@ -26,6 +38,10 @@ export const NoteScreen = () => {
   useEffect(() => {
     dispatch(activeNote(inputsValue.id, { ...inputsValue }));
   }, [dispatch, inputsValue]);
+  const handleDeleteImage = () => {
+    console.log("click");
+    dispatch(deleteImage(notes.id));
+  };
   return (
     <div className="notes__main-content">
       <NotesAppBar {...inputsValue} />
@@ -51,6 +67,7 @@ export const NoteScreen = () => {
 
         {notes.url && (
           <div className="notes__image">
+            <i onClick={handleDeleteImage} className="fas fa-trash trash" />
             <img src={notes.url} alt="imagen" />
           </div>
         )}

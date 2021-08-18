@@ -1,15 +1,22 @@
-import React, { useEffect, useState } from "react";
-import { BrowserRouter as Router, Switch, Redirect } from "react-router-dom";
+import React, {
+  useEffect,
+  useState,
+} from 'react';
 
-import firebase from "firebase/app";
-import { AuthRouter } from "./AuthRouter";
-import { JournalScreen } from "../components/journal/JournalScreen";
-import { useDispatch } from "react-redux";
-import { login } from "../actions/login";
-import PrivateRoutes from "./PrivateRoutes";
-import PublicRoutes from "./PublicRoutes";
+import firebase from 'firebase/app';
+import { useDispatch } from 'react-redux';
+import {
+  BrowserRouter as Router,
+  Redirect,
+  Switch,
+} from 'react-router-dom';
 
-import { startloadingNotes } from "../actions/notes";
+import { JournalScreen } from '../components/journal/JournalScreen';
+import { login } from '../redux/actions/login';
+import { startloadingNotes } from '../redux/actions/notes';
+import { AuthRouter } from './AuthRouter';
+import PrivateRoutes from './PrivateRoutes';
+import PublicRoutes from './PublicRoutes';
 
 export const AppRouter = () => {
   const [checking, setChecking] = useState(true);
@@ -17,7 +24,6 @@ export const AppRouter = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    
     firebase.auth().onAuthStateChanged((user) => {
       if (user?.uid) {
         dispatch(login(user.uid, user.displayName));

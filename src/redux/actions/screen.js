@@ -1,6 +1,6 @@
-import { type } from "../types/type";
+import { types } from '../types/types';
 
 export const screenResizeAction = (tipe) => ({
-  type: type.uiMediaScreen,
+  type: types.uiMediaScreen,
   payload: tipe,
 });

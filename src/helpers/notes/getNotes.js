@@ -1,4 +1,4 @@
-import { db } from "../../firebase/firebaseConfig";
+import { db } from '../../api/firebase/firebaseConfig';
 
 //Conect to firebase and get data storage
 export const getNotes = async (uid) => {
